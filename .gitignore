@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+.env
+
+# ChromaDB
+chroma_db/
+
+# Uploads
+uploads/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+
+# Build
+dist/
+build/
+
+# Node
+node_modules/
+
+# React
+frontend/dist/
+frontend/build/
