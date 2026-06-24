@@ -1,0 +1,10 @@
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    PROJECT_NAME: str = "Enterprise Knowledge Assistant"
+    VERSION: str = "1.0.0"
+
+    class Config:
+        env_file=".env"
+
+Settings = Settings()
