@@ -6,7 +6,8 @@ class DocumentService:
 
     def save_document(
         self,
-        file: UploadFile
+        file: UploadFile,
+        department: str
     ):
 
         self.UPLOAD_DIR.mkdir(
@@ -27,8 +28,9 @@ class DocumentService:
             )
 
         return {
-            "filename": file.filename,
-            "path": str(file_path)
+        "filename": file.filename,
+        "department": department,
+        "path": str(file_path)
         }
 
 

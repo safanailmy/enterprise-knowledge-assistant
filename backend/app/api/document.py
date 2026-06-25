@@ -1,7 +1,8 @@
 from fastapi import (
     APIRouter,
     UploadFile,
-    File
+    File,
+    Form
 )
 
 from app.services.document_service import (
@@ -16,9 +17,11 @@ router = APIRouter(
 
 @router.post("/upload")
 def upload_document(
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    department: str = Form(...)
 ):
 
     return document_service.save_document(
-        file
+        file,
+        department
     )
