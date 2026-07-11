@@ -192,20 +192,20 @@ Audit records include:
 ![RAG Architecture](images/RAG-Architecture.png)
 
 ## Document Version Architecture
-![Document Versioning](images\document-version.png)
+![Document Versioning](images/document-version.png)
 
 A rollback does not overwrite document history. Instead, the selected historical version is copied into a new latest version.
 
 Example:
 
-V1 → Original document 
-V2 → Updated document 
+V1 → Original document,  
+V2 → Updated document,  
 V3 → Rollback copy of V1 
 
 RAG uses only V3 because it is the latest active version.
 
 ## Security Model
-![Security Model](images\security-model.png)
+![Security Model](images/security-model.png)
 
 The RAG pipeline also validates retrieved document IDs against PostgreSQL before sending context to the language model. This prevents deleted, outdated, unauthorized, or non latest document versions from being used in answers.
 
@@ -254,7 +254,7 @@ Planned:
 - Tailwind CSS
 
 ## Project Structure
-![Project Structure](images\project-structure.png)
+![Project Structure](images/project-structure.png)
 
 ## Future Multi-Format Knowledge Support
 
