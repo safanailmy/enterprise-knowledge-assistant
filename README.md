@@ -192,44 +192,20 @@ Audit records include:
 ![RAG Architecture](images\RAG-Architecture.png)
 
 ## Document Version Architecture
-Document Family
-    │
-    ├── Version 1
-    │
-    ├── Version 2
-    │
-    └── Version 3
-         ↑
-    Latest Active Version
-         ↓
-    Available to RAG
+![Document Versioning](images\document-version.png)
 
 A rollback does not overwrite document history. Instead, the selected historical version is copied into a new latest version.
 
 Example:
 
-V1 → Original document
-V2 → Updated document
-V3 → Rollback copy of V1
+V1 → Original document 
+V2 → Updated document 
+V3 → Rollback copy of V1 
 
 RAG uses only V3 because it is the latest active version.
 
 ## Security Model
-Admin
-    ├── Manage documents
-    ├── Upload new versions
-    ├── Roll back versions
-    ├── Delete and restore documents
-    ├── Permanently delete documents
-    ├── Search across authorized documents
-    ├── Access analytics dashboard
-    └── Access administrative functionality
-
-Regular User
-    ├── Access documents from their department
-    ├── Ask questions using authorized knowledge
-    ├── Manage personal conversations
-    └── Download authorized documents
+![Security Model](images\security-model.png)
 
 The RAG pipeline also validates retrieved document IDs against PostgreSQL before sending context to the language model. This prevents deleted, outdated, unauthorized, or non latest document versions from being used in answers.
 
@@ -278,43 +254,7 @@ Planned:
 - Tailwind CSS
 
 ## Project Structure
-backend/
-│
-├── alembic/
-│
-├── app/
-│   ├── api/
-│   ├── core/
-│   ├── dependencies/
-│   ├── enums/
-│   ├── models/
-│   ├── repositories/
-│   ├── schemas/
-│   └── services/
-│       ├── audit/
-│       ├── conversation/
-│       ├── document/
-│       ├── extraction/
-│       ├── ingestion/
-│       ├── llm/
-│       └── rag/
-│
-├── tests/
-│   ├── integration/
-│   │   ├── test_health.py
-│   │   ├── test_auth.py
-│   │   ├── test_users.py
-│   │   ├── test_conversations.py
-│   │   ├── test_documents.py
-│   │   └── test_chat.py
-│   │
-│   └── conftest.py
-│
-├── chroma/
-├── uploads/
-├── .env
-├── alembic.ini
-└── requirements.txt
+![Project Structure](images\project-structure.png)
 
 ## Future Multi-Format Knowledge Support
 
