@@ -189,33 +189,7 @@ Audit records include:
 - Timestamp
 
 ## RAG Architecture
-PDF Upload
- ↓ 
-PDF Text Extraction
- ↓ 
-Page Aware Processing
- ↓ 
-Overlapping Text Chunking
- ↓ 
-SentenceTransformer Embeddings
- ↓ 
-ChromaDB Vector Storage
- ↓ 
-User Question
- ↓ 
-Conversation Aware Query Rewriting
- ↓ 
-Semantic Retrieval
- ↓ 
-PostgreSQL Authorization and Version Validation
- ↓
- Duplicate Chunk Removal
- ↓ 
-Top Relevant Context
- ↓ 
-Gemini
- ↓ 
-Grounded Answer with Page Level Sources
+![RAG Architecture](images\RAG-Architecture.png)
 
 ## Document Version Architecture
 Document Family
