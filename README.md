@@ -189,7 +189,7 @@ Audit records include:
 - Timestamp
 
 ## RAG Architecture
-![RAG Architecture](images\RAG-Architecture.png)
+![RAG Architecture](images/RAG-Architecture.png)
 
 ## Document Version Architecture
 ![Document Versioning](images\document-version.png)
