@@ -2,16 +2,26 @@
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
 
-# Virtual Environment
+# Virtual Environments
 venv/
+.venv/
+env/
+
+# Environment Variables
 .env
+.env.*
+!.env.example
 
 # ChromaDB
+backend/chroma/
+chroma/
 chroma_db/
 
-# Uploads
+# Uploaded Files
 uploads/
+backend/uploads/
 
 # Logs
 *.log
@@ -20,12 +30,10 @@ uploads/
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-Thumbs.db
-
 # Testing
 .pytest_cache/
+.coverage
+htmlcov/
 
 # Build
 dist/
@@ -33,7 +41,10 @@ build/
 
 # Node
 node_modules/
-
-# React
+frontend/node_modules/
 frontend/dist/
 frontend/build/
+
+# OS
+.DS_Store
+Thumbs.db
