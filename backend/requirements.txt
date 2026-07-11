@@ -3,3 +3,19 @@ uvicorn
 python-dotenv
 pydantic-settings
 python-multipart
+PyMuPDF
+pathlib
+sentence_transformers
+chromadb
+google-generativeai
+sqlalchemy psycopg2-binary
+pwdlib
+pwdlib[argon2]
+email-validator
+python-jose[cryptography]
+alembic
+alembic init alembic
+pytest
+pytest-cov
+httpx
+pytest-mock

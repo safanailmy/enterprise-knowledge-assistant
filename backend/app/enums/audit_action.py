@@ -1,0 +1,29 @@
+from enum import Enum
+
+
+class AuditAction(str, Enum):
+
+    DOCUMENT_UPLOADED = "DOCUMENT_UPLOADED"
+
+    DOCUMENT_VERSION_CREATED = (
+        "DOCUMENT_VERSION_CREATED"
+    )
+
+    DOCUMENT_ROLLED_BACK = (
+        "DOCUMENT_ROLLED_BACK"
+    )
+
+    DOCUMENT_SOFT_DELETED = (
+        "DOCUMENT_SOFT_DELETED"
+    )
+
+    DOCUMENT_RESTORED = (
+        "DOCUMENT_RESTORED"
+    )
+
+    DOCUMENT_PERMANENTLY_DELETED = (
+        "DOCUMENT_PERMANENTLY_DELETED"
+    )
+
+    # Chat actions
+    CHAT_QUERY = "CHAT_QUERY"
