@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+
+  postgres:
+
+    image: postgres:15
+
+    container_name: eka-postgres
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+
+    build:
+      context: ./backend
+
+    container_name: eka-backend
+
+    restart: always
+
+    depends_on:
+      - postgres
+
+    env_file:
+      - ./backend/.env
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/chroma:/app/chroma
+
+volumes:
+
+  postgres_data:
