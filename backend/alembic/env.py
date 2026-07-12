@@ -9,12 +9,11 @@ from app.core.database import Base
 
 from app.core.settings import settings
 
-from app.models.document import Document
-from app.models.user import User
-from app.models.audit_log import AuditLog
-
-from app.models.conversation import Conversation
-from app.models.message import Message
+import app.models.user
+import app.models.document
+import app.models.audit_log
+import app.models.conversation
+import app.models.message
 
 config = context.config
 

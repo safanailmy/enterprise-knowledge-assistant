@@ -1,0 +1,74 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    services:
+
+      postgres:
+
+        image: postgres:15
+
+        env:
+          POSTGRES_DB: eka_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create test environment
+        run: |
+          echo "DATABASE_HOST=localhost" >> .env.test
+          echo "DATABASE_PORT=5432" >> .env.test
+          echo "DATABASE_NAME=eka_test" >> .env.test
+          echo "DATABASE_USER=postgres" >> .env.test
+          echo "DATABASE_PASSWORD=postgres" >> .env.test
+          echo "GEMINI_API_KEY=dummy" >> .env.test
+          echo "GEMINI_MODEL=gemini-2.5-flash" >> .env.test
+          echo "SECRET_KEY=test-secret-key" >> .env.test
+          echo "ALGORITHM=HS256" >> .env.test
+          echo "ACCESS_TOKEN_EXPIRE_MINUTES=60" >> .env.test
+
+      - name: Run Tests
+        run: |
+          pytest

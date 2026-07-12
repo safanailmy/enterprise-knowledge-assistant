@@ -9,7 +9,8 @@ from pydantic_settings import (
 class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
-        env_file=".env"
+        env_file=".env",
+        extra="ignore"
     )
 
     PROJECT_NAME: str = "Enterprise Knowledge Assistant"
