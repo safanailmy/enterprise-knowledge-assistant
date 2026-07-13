@@ -231,11 +231,7 @@ class ChatService:
                 raise RuntimeError(
                     "LLM generation failed."
                 )
-            
-            #forced failure
-            #raise RuntimeError(
-            #    "TEST: Forced chat failure."
-            #)
+        
 
             sources = [
                 {
