@@ -1,3 +1,5 @@
+import logging
+
 from datetime import datetime
 
 from fastapi import HTTPException
@@ -70,6 +72,8 @@ from app.schemas.prompt_request import (
 from app.services.llm.query_rewriter_service import (
     query_rewriter_service
 )
+
+logger = logging.getLogger(__name__)
 
 class ChatService:
 
@@ -298,20 +302,34 @@ class ChatService:
                 sources=sources
             )
 
+        except HTTPException:
+
+            raise
+
         except Exception as error:
+
             try:
+
                 message_repository.delete(
                     db=db,
                     message=user_message
                 )
+
             except Exception:
-                pass
+
+                logger.exception(
+                    "Failed to rollback user message."
+                )
+
+            logger.exception(
+                "Unexpected error occurred while processing chat."
+            )
 
             raise HTTPException(
-                status_code=503,
+                status_code=500,
                 detail=(
-                    "The chat service is temporarily "
-                    "unavailable. Please try again."
+                    "An unexpected error occurred while "
+                    "processing your request."
                 )
             ) from error
 

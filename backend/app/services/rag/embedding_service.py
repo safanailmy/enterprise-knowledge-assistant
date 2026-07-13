@@ -1,22 +1,46 @@
+import logging
+
 from sentence_transformers import SentenceTransformer
 
 from app.schemas.embedded_chunk import EmbeddedChunk
+
+logger = logging.getLogger(__name__)
 
 
 class EmbeddingService:
 
     def __init__(self):
 
-        self.model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
-        )
+        self.model = None
+
+    
+
+    def _get_model(self):
+
+        if self.model is None:
+
+            logger.info(
+                "Loading embedding model..."
+            )
+
+            self.model = SentenceTransformer(
+                "all-MiniLM-L6-v2"
+            )
+
+            logger.info(
+                "Embedding model loaded."
+            )
+
+        return self.model
 
     def embed_documents(
         self,
         chunks: list[str]
     ) -> list[EmbeddedChunk]:
 
-        vectors = self.model.encode(chunks)
+        model = self._get_model()
+
+        vectors = model.encode(chunks)
 
         embedded_chunks = []
 
@@ -39,7 +63,9 @@ class EmbeddingService:
         question: str
     ) -> list[float]:
 
-        vector = self.model.encode(question)
+        model = self._get_model()
+
+        vector = model.encode(question)
 
         return vector.tolist()
 
