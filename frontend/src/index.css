@@ -3,6 +3,29 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
+:root {
+
+  --bg-primary: #081C2D;
+  --bg-secondary: #0B1020;
+  --bg-card: #1A2135;
+  --bg-hover: #27324A;
+
+  --border: #334155;
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
