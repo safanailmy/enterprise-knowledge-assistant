@@ -1,0 +1,59 @@
+/* ===========================
+   Floating Logo
+=========================== */
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.animate-logo {
+  animation: logoFloat 8s ease-in-out infinite;
+}
+
+/* ===========================
+   Glow Breathing
+=========================== */
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: .75;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+.animate-glow {
+  animation: glowPulse 7s ease-in-out infinite;
+}
+
+/* ===========================
+   Reflection
+=========================== */
+
+@keyframes reflection {
+
+  0%,
+  100% {
+    opacity: .18;
+  }
+
+  50% {
+    opacity: .32;
+  }
+}
+
+.animate-reflection {
+  animation: reflection 7s ease-in-out infinite;
+}

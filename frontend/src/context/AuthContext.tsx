@@ -2,68 +2,95 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   ReactNode,
 } from "react";
 
-interface User {
-  user_id: string;
-  full_name: string;
-  email: string;
-  department: string;
-  role: string;
-}
+import {
+  login as loginAPI,
+  getCurrentUser,
+  UserProfile,
+} from "../api/auth";
 
-interface AuthContextType {
-  user: User | null;
-  token: string | null;
+type AuthContextType = {
+  user: UserProfile | null;
+  loading: boolean;
+  isAuthenticated: boolean;
 
   login: (
-    token: string,
-    user: User
-  ) => void;
+    email: string,
+    password: string
+  ) => Promise<void>;
 
   logout: () => void;
-}
+};
 
-const AuthContext =
-  createContext<AuthContextType | undefined>(
-    undefined
-  );
-
-interface Props {
-  children: ReactNode;
-}
+const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export function AuthProvider({
   children,
-}: Props) {
+}: {
+  children: ReactNode;
+}) {
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const [user, setUser] =
-    useState<User | null>(null);
+  useEffect(() => {
+    async function initializeAuth() {
+      const token = localStorage.getItem("access_token");
 
-  const [token, setToken] =
-    useState<string | null>(null);
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-  function login(
-    token: string,
-    user: User
-  ) {
-    setToken(token);
-    setUser(user);
-  }
+      try {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      } catch {
+        localStorage.removeItem("access_token");
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  function logout() {
-    setToken(null);
+    initializeAuth();
+  }, []);
+
+  const login = async (
+    email: string,
+    password: string
+  ) => {
+    const response = await loginAPI({
+      email,
+      password,
+    });
+
+    localStorage.setItem(
+      "access_token",
+      response.access_token
+    );
+
+    const currentUser = await getCurrentUser();
+
+    setUser(currentUser);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
     setUser(null);
-  }
+  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        token,
+        loading,
         login,
         logout,
+        isAuthenticated: !!user,
       }}
     >
       {children}
@@ -72,9 +99,7 @@ export function AuthProvider({
 }
 
 export function useAuth() {
-
-  const context =
-    useContext(AuthContext);
+  const context = useContext(AuthContext);
 
   if (!context) {
     throw new Error(

@@ -5,11 +5,12 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import ProtectedRoute from "./ProtectedRoute";
 import PublicLayout from "../layouts/PublicLayout";
 import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 
-import LoginPage from "../pages/login/LoginPage";
-import DashboardPage from "../pages/dashboard/DashboardPage";
+import LoginPage from "../pages/auth/LoginPage";
+import HomePage from "../pages/home/HomePage";
 import DocumentsPage from "../pages/documents/DocumentsPage";
 import ChatPage from "../pages/chat/ChatPage";
 import UsersPage from "../pages/users/UsersPage";
@@ -27,9 +28,10 @@ export default function AppRouter() {
             <Route path="/login" element={<LoginPage />} />
         </Route>
 
-        <Route element={<AuthenticatedLayout />}>
+        <Route element={<ProtectedRoute />}>
+         <Route element={<AuthenticatedLayout />}>
 
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/dashboard" element={<HomePage />} />
 
             <Route path="/documents" element={<DocumentsPage />} />
 
@@ -40,6 +42,8 @@ export default function AppRouter() {
             <Route path="/audit-logs" element={<AuditLogsPage />} />
 
             <Route path="/analytics" element={<AnalyticsPage />} />
+
+        </Route>
 
         </Route>
 

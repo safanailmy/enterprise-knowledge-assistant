@@ -7,7 +7,7 @@ export default function AuthenticatedLayout() {
   return (
 
     <ThemeBackground>
-      <div className="flex min-h-screen">
+      <div className="flex h-screen overflow-hidden">
 
         {/* Sidebar */}
 
@@ -15,14 +15,12 @@ export default function AuthenticatedLayout() {
 
         {/* Main */}
 
-        <main className="flex-1 flex flex-col">
+        <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
 
           <TopBar />
 
-          <div className="flex-1 p-8">
-
+          <div className="flex-1 overflow-hidden p-8">
               <Outlet />
-
           </div>
 
       </main>
