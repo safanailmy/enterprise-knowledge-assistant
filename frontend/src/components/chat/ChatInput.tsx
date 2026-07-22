@@ -66,19 +66,25 @@ export default function ChatInput() {
           <button
             className="
               flex
-              h-9
-              w-9
+              h-10
+              w-10
               items-center
               justify-center
               rounded-full
-              bg-gradient-to-br
-              bg-[#5C86F8]
+              text-white
               transition-all
+              duration-300
               hover:scale-105
-              hover:bg-[#7098FF]
+              active:scale-95
             "
+            style={{
+              background:
+                "linear-gradient(135deg,#76A8FF 0%,#5B84F8 100%)",
+              boxShadow:
+                "0 0 16px rgba(104,154,255,.35), inset 0 1px 2px rgba(255,255,255,.20)",
+            }}
           >
-            <ArrowUp size={15} />
+            <ArrowUp size={15} strokeWidth={2.4} />
           </button>
         </div>
       </div>

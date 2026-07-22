@@ -1,53 +1,58 @@
-import { Search } from "lucide-react";
+type DocumentsHeaderProps = {
+  totalDocuments: number;
+};
 
-export default function DocumentsHeader() {
+export default function DocumentsHeader({
+  totalDocuments,
+}: DocumentsHeaderProps) {
   return (
-    <>
-      <div className="mt-2 flex items-end justify-between">
+    <header className="mt-2">
+
+      {/* Title Row */}
+      <div className="flex items-center justify-between">
+
         <div>
 
-          <p className="mt-2 text-sm text-white/45">
+          <p
+            className="
+              mt-0
+              text-sm
+              text-white/50
+            "
+          >
             Manage and organize your enterprise knowledge base
           </p>
         </div>
 
-        <p className="text-sm text-white/40">
-          24 Files
-        </p>
-      </div>
+        {/* Document Count */}
 
-      <div className="mt-6 h-px bg-white/6" />
-
-      <div className="relative mt-6">
-        <Search
-          size={18}
+        <div
           className="
-            absolute
-            left-5
-            top-1/2
-            -translate-y-1/2
-            text-white/30
-          "
-        />
-
-        <input
-          placeholder="Search documents..."
-          className="
-            h-10
-            w-full
-            rounded-xl
+            rounded-full
             border
-            border-white/8
-            bg-[#193C60]
-            pl-12
-            pr-4
-            text-sm
-            text-white
-            placeholder:text-white/35
-            outline-none
+            border-white/10
+            bg-[#173A5D]
+            px-4
+            py-1
           "
-        />
+        >
+          <span
+            className="
+              text-sm
+              font-medium
+              text-white/80
+            "
+          >
+            {totalDocuments} Documents
+          </span>
+        </div>
+
       </div>
-    </>
+
+      {/* Divider */}
+
+      <div className="mt-2 h-px bg-white/8" />
+
+    </header>
   );
 }

@@ -12,3 +12,14 @@ export interface Document {
 export interface DocumentListResponse {
   documents: Document[];
 }
+
+/* ---------------- Version History ---------------- */
+
+export interface DocumentVersion extends Document {
+  is_deleted: boolean;
+}
+
+export interface DocumentVersionsResponse {
+  document_group_id: string;
+  versions: DocumentVersion[];
+}

@@ -1,55 +1,54 @@
-import { Search, Upload } from "lucide-react";
+import { Plus } from "lucide-react";
 
-export default function DocumentsToolbar() {
+import SearchBar from "./SearchBar";
+import DocumentFilters from "./DocumentFilters";
+
+type DocumentsToolbarProps = {
+  onUploadClick?: () => void;
+  searchQuery: string;
+  onSearchChange: (value: string) => void;
+};
+
+export default function DocumentsToolbar({
+  onUploadClick,
+  searchQuery,
+  onSearchChange,
+}: DocumentsToolbarProps) {
   return (
-    <section className="mb-8 flex items-center justify-between gap-5">
+    <section className="mt-8 space-y-6">
+      {/* Search + Upload */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1">
+          <SearchBar
+            value={searchQuery}
+            onChange={onSearchChange}
+          />
+        </div>
 
-      <div
-        className="
-          flex
-          w-[420px]
-          items-center
-          gap-3
-          rounded-2xl
-          border
-          border-white/10
-          bg-[#173A5D]
-          px-4
-          py-3
-        "
-      >
-        <Search size={18} className="text-white/40" />
-
-        <input
-          placeholder="Search documents..."
+        <button
+          onClick={onUploadClick}
           className="
-            w-full
-            bg-transparent
+            flex
+            h-11
+            items-center
+            gap-2
+            rounded-xl
+            bg-[#5C86F8]
+            px-5
+            text-sm
+            font-medium
             text-white
-            outline-none
-            placeholder:text-white/35
+            shadow-md
+            transition-all
+            hover:bg-[#7096FF]
+            hover:shadow-lg
+            active:scale-[0.98]
           "
-        />
+        >
+          <Plus size={18} />
+          Upload Document
+        </button>
       </div>
-
-      <button
-        className="
-          flex
-          items-center
-          gap-2
-          rounded-xl
-          bg-[#4F7DF3]
-          px-5
-          py-3
-          text-white
-          transition
-          hover:bg-[#6B92FF]
-        "
-      >
-        <Upload size={18} />
-
-        Upload
-      </button>
 
     </section>
   );

@@ -35,6 +35,8 @@ def get_current_user(
     db: Session = Depends(get_db)
 
 ) -> User:
+    
+    print("TOKEN:", token)
 
     payload = verify_access_token(
         token
