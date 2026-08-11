@@ -26,12 +26,27 @@
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;            /* Chrome, Safari, Opera */
+}
+
+/* Hide the default password reveal button in Microsoft Edge */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
   display: none;
+}
+
+/* Hide the default password reveal button in Chromium browsers */
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none !important;
 }
 
 @custom-variant dark (&:is(.dark *));

@@ -1,7 +1,19 @@
 import PromptBox from "./PromptBox";
 import SuggestionChips from "./SuggestionChips";
 
-export default function AIWorkspace() {
+import { ChatFilters } from "../../types/chatFilters";
+
+type Props = {
+  filters: ChatFilters;
+  onFiltersChange: (filters: ChatFilters) => void;
+  onOpenFilters: () => void;
+};
+
+export default function AIWorkspace({
+  filters,
+  onFiltersChange,
+  onOpenFilters,
+}: Props) {
   return (
     <section className="mt-8">
       <div
@@ -15,7 +27,11 @@ export default function AIWorkspace() {
         <SuggestionChips />
 
         <div className="mt-5">
-          <PromptBox />
+          <PromptBox
+            filters={filters}
+            onFiltersChange={onFiltersChange}
+            onOpenFilters={onOpenFilters}
+          />
         </div>
       </div>
     </section>

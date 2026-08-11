@@ -1,15 +1,108 @@
-import {
-  Paperclip,
-  Mic,
-  ArrowUp,
-} from "lucide-react";
+import { useState, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function PromptBox() {
+import {
+  ArrowUp,
+  Loader2,
+  SlidersHorizontal,
+  Building2,
+  User,
+  FileText,
+  Hash,
+  X,
+  type LucideIcon,
+} from "lucide-react";
+import { ChatFilters } from "../../types/chatFilters";
+
+type Props = {
+  filters: ChatFilters;
+  onFiltersChange: (filters: ChatFilters) => void;
+  onOpenFilters: () => void;
+};
+
+type ActiveFilter = {
+  key: keyof ChatFilters;
+  icon: LucideIcon;
+  label: string;
+};
+
+export default function PromptBox({
+  filters,
+  onFiltersChange,
+  onOpenFilters,
+}: Props) {
+  const navigate = useNavigate();
+
+  const [input, setInput] = useState("");
+
+  const handleSend = () => {
+    const message = input.trim();
+
+    if (!message) return;
+
+    navigate("/chat", {
+      state: {
+        question: message,
+        filters,
+      },
+    });
+  };
+
+  const handleKeyDown = (
+    e: KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const activeFilters: ActiveFilter[] = [];
+
+if (filters.department) {
+  activeFilters.push({
+    key: "department",
+    icon: Building2,
+    label: filters.department,
+  });
+}
+
+if (filters.uploaded_by) {
+  activeFilters.push({
+    key: "uploaded_by",
+    icon: User,
+    label: filters.uploaded_by,
+  });
+}
+
+if (filters.version !== undefined) {
+  activeFilters.push({
+    key: "version",
+    icon: Hash,
+    label: `v${filters.version}`,
+  });
+}
+
+if (filters.status) {
+  activeFilters.push({
+    key: "status",
+    icon: FileText,
+    label: filters.status,
+  });
+}
+
+const removeFilter = (key: keyof ChatFilters) => {
+  onFiltersChange({
+    ...filters,
+    [key]: undefined,
+  });
+};
+
   return (
     <div
       className="
         relative
-        w-full
+        w-200
         overflow-hidden
         rounded-[22px]
         border
@@ -39,6 +132,9 @@ export default function PromptBox() {
       <div className="relative">
         <textarea
           rows={1}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Ask anything about your enterprise..."
           className="
             w-full
@@ -59,57 +155,87 @@ export default function PromptBox() {
         />
 
         <div className="mt-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <button
-              className="
-                flex
-                items-center
-                gap-2
-                rounded-full
-                border
-                border-white/8
-                bg-white/[0.04]
-                px-3
-                py-2
-                text-sm
-                text-white/70
-                transition-all
-                duration-200
-                hover:border-white/15
-                hover:bg-white/[0.08]
-                hover:text-white
-              "
-            >
-              <Paperclip size={14} strokeWidth={2} />
-              Attach
-            </button>
+          {/* Left */}
+          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
 
-            <button
-              className="
-                flex
-                items-center
-                gap-2
-                rounded-full
-                border
-                border-white/8
-                bg-white/[0.04]
-                px-3
-                py-2
-                text-sm
-                text-white/70
-                transition-all
-                duration-200
-                hover:border-white/15
-                hover:bg-white/[0.08]
-                hover:text-white
-              "
-            >
-              <Mic size={14} strokeWidth={2} />
-              Voice
-            </button>
-          </div>
+  <button
+    type="button"
+    onClick={onOpenFilters}
+    className="
+      inline-flex
+      items-center
+      gap-2
+      rounded-full
+      border
+      border-white/10
+      bg-white/5
+      px-3
+      py-1.5
+      text-xs
+      font-medium
+      text-white/80
+      transition-all
+      hover:bg-white/10
+      hover:text-white
+    "
+  >
+    <SlidersHorizontal size={14} />
+    Advanced Search
+  </button>
 
+  {activeFilters.map((filter) => {
+    const Icon = filter.icon;
+
+    return (
+      <div
+        key={filter.key}
+        className="
+          flex
+          shrink-0
+          items-center
+          gap-1
+          rounded-full
+          border
+          border-[#76A8FF]/25
+          bg-[#76A8FF]/10
+          px-2
+          py-0.5
+          text-[10px]
+          leading-4
+          text-[#AFCBFF]
+        "
+      >
+        <Icon
+          size={12}
+          className="text-[#AFCBFF]"
+        />
+
+        <span className="max-w-[70px] truncate">
+          {filter.label}
+        </span>
+
+        <button
+          onClick={() => removeFilter(filter.key)}
+          className="
+            rounded-full
+            p-0.5
+            text-white/60
+            transition
+            hover:bg-white/10
+            hover:text-white
+          "
+        >
+          <X size={10} />
+        </button>
+      </div>
+    );
+  })}
+</div>
+          {/* Right */}
           <button
+            type="button"
+            onClick={handleSend}
+            disabled={!input.trim()}
             className="
               flex
               h-10
@@ -122,6 +248,8 @@ export default function PromptBox() {
               duration-300
               hover:scale-105
               active:scale-95
+              disabled:cursor-not-allowed
+              disabled:opacity-50
             "
             style={{
               background:
@@ -130,7 +258,10 @@ export default function PromptBox() {
                 "0 0 16px rgba(104,154,255,.35), inset 0 1px 2px rgba(255,255,255,.20)",
             }}
           >
-            <ArrowUp size={15} strokeWidth={2.4} />
+            <ArrowUp
+              size={15}
+              strokeWidth={2.4}
+            />
           </button>
         </div>
       </div>

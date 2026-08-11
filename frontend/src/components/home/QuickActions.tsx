@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Upload,
   MessageSquare,
-  BookOpen,
   Users,
   BarChart3,
   ShieldCheck,
@@ -11,19 +10,14 @@ import {
 
 const actions = [
   {
-    title: "Upload Documents",
-    icon: Upload,
-    route: "/documents",
-  },
-  {
     title: "AI Chat",
     icon: MessageSquare,
     route: "/chat",
   },
   {
-    title: "Knowledge Base",
-    icon: BookOpen,
-    route: "/knowledge-base",
+    title: "Upload Documents",
+    icon: Upload,
+    route: "/documents",
   },
   {
     title: "Users",
@@ -31,14 +25,14 @@ const actions = [
     route: "/users",
   },
   {
+    title: "Audit Logs",
+    icon: ShieldCheck,
+    route: "/audit-logs",
+  },
+  {
     title: "Analytics",
     icon: BarChart3,
     route: "/analytics",
-  },
-  {
-    title: "Audit Logs",
-    icon: ShieldCheck,
-    route: "/audit",
   },
 ];
 

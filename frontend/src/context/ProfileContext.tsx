@@ -1,0 +1,46 @@
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+} from "react";
+
+type ProfileContextType = {
+  open: boolean;
+  openProfile: () => void;
+  closeProfile: () => void;
+};
+
+const ProfileContext = createContext<ProfileContextType | null>(null);
+
+export function ProfileProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <ProfileContext.Provider
+      value={{
+        open,
+        openProfile: () => setOpen(true),
+        closeProfile: () => setOpen(false),
+      }}
+    >
+      {children}
+    </ProfileContext.Provider>
+  );
+}
+
+export function useProfile() {
+  const context = useContext(ProfileContext);
+
+  if (!context) {
+    throw new Error(
+      "useProfile must be used inside ProfileProvider"
+    );
+  }
+
+  return context;
+}
