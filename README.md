@@ -504,11 +504,11 @@ The backend exposes REST APIs for:
 ![RAG Architecture](images/API-Structure.png)
 
 # Project structure
-![RAG Architecture](images/Project-Structure.png)
+![RAG Architecture](images/project-structure.png)
 
 # Security Model
 The system uses multiple security layers.
-![RAG Architecture](images/Security-Model.png)
+![RAG Architecture](images/security-sodel.png)
 
 Authentication and authorization are enforced at the API level.
 
