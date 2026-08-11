@@ -508,7 +508,7 @@ The backend exposes REST APIs for:
 
 # Security Model
 The system uses multiple security layers.
-![RAG Architecture](images/security-sodel.png)
+![RAG Architecture](images/security-model.png)
 
 Authentication and authorization are enforced at the API level.
 
