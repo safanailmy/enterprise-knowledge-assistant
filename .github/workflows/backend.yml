@@ -70,5 +70,16 @@ jobs:
           echo "ACCESS_TOKEN_EXPIRE_MINUTES=60" >> .env.test
 
       - name: Run Tests
+          env:
+            DATABASE_HOST: localhost
+            DATABASE_PORT: 5432
+            DATABASE_NAME: eka_test
+            DATABASE_USER: postgres
+            DATABASE_PASSWORD: postgres
+            GEMINI_API_KEY: dummy
+            GEMINI_MODEL: gemini-2.5-flash
+            SECRET_KEY: test-secret-key
+            ALGORITHM: HS256
+            ACCESS_TOKEN_EXPIRE_MINUTES: 60
         run: |
           pytest
